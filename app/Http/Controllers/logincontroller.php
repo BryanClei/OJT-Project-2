@@ -77,11 +77,11 @@ class logincontroller extends Controller
 
         if(Auth::attempt($credentials)){
             if(Auth::user()->role==0){
-                return redirect('login/dashboard');
+                return redirect('login/admin/dashboard');
             }elseif(Auth::user()->role==1){
-                return redirect('login/manager');
+                return redirect('login/manager/manager');
             }else{
-                return redirect('login/user');
+                return redirect('login/user/user');
             }
         }
 
@@ -94,7 +94,7 @@ class logincontroller extends Controller
         if(Auth::check()){
             if(Auth::user()->role == 0){
                 $name = Auth::user();
-                return view('login/dashboard', ['user' => $name]);
+                return view('login/admin/dashboard', ['user' => $name]);
             }else{
                 return redirect('/')->with('success', 'you are not allowed to access');
             }
@@ -103,12 +103,282 @@ class logincontroller extends Controller
         }
     }
 
+    public function viewprofile(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 0){
+                $name = Auth::user();
+                return view('login/admin/viewprofile', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+    }
+
+    public function vmprofile(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 1){
+                $name = Auth::user();
+                return view('login/manager/vmprofile', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+    }
+
+    public function vuprofile(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 2){
+                $name = Auth::user();
+                return view('login/user/vuprofile', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+    }
+
+    public function update(Request $request, $id){
+
+        $request->validate([
+            'firstname' => 'required',
+            'surname' => 'required',
+            'birthday' => 'required',
+            'gender' => 'required',
+            'contact' => 'required|min:11|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'street' => 'required',
+            'barangay' => 'required',
+            'city' => 'required',
+            'province' => 'required',
+            'gender' => 'required'
+        ]);
+
+        $admin = User::find($id);
+
+        $admin->firstname = request('firstname');
+        $admin->middlename = request('middlename');
+        $admin->surname = request('surname');
+        $admin->birthday = request('birthday');
+        $admin->contact = request('contact');
+        $admin->street = request('street');
+        $admin->barangay = request('barangay');
+        $admin->city = request('city');
+        $admin->province = request('province');
+        $admin->gender = request('gender');
+        $admin->update();
+        return redirect('login/admin/viewprofile')->with('success', 'Account Updated Successfuly!');
+    }
+
+    public function updatemanager(Request $request, $id){
+
+        $request->validate([
+            'firstname' => 'required',
+            'surname' => 'required',
+            'birthday' => 'required',
+            'gender' => 'required',
+            'contact' => 'required|min:11|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'street' => 'required',
+            'barangay' => 'required',
+            'city' => 'required',
+            'province' => 'required',
+            'gender' => 'required'
+        ]);
+
+        $admin = User::find($id);
+
+        $admin->firstname = request('firstname');
+        $admin->middlename = request('middlename');
+        $admin->surname = request('surname');
+        $admin->birthday = request('birthday');
+        $admin->contact = request('contact');
+        $admin->street = request('street');
+        $admin->barangay = request('barangay');
+        $admin->city = request('city');
+        $admin->province = request('province');
+        $admin->gender = request('gender');
+        $admin->update();
+        return redirect('login/manager/vmprofile')->with('success', 'Account Updated Successfuly!');
+    }
+
+    public function updateuser(Request $request, $id){
+
+        $request->validate([
+            'firstname' => 'required',
+            'surname' => 'required',
+            'birthday' => 'required',
+            'gender' => 'required',
+            'contact' => 'required|min:11|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'street' => 'required',
+            'barangay' => 'required',
+            'city' => 'required',
+            'province' => 'required',
+            'gender' => 'required'
+        ]);
+
+        $admin = User::find($id);
+
+        $admin->firstname = request('firstname');
+        $admin->middlename = request('middlename');
+        $admin->surname = request('surname');
+        $admin->birthday = request('birthday');
+        $admin->contact = request('contact');
+        $admin->street = request('street');
+        $admin->barangay = request('barangay');
+        $admin->city = request('city');
+        $admin->province = request('province');
+        $admin->gender = request('gender');
+        $admin->update();
+        return redirect('login/user/vuprofile')->with('success', 'Account Updated Successfuly!');
+    }
+
+    public function updatepassword(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 0){
+                $name = Auth::user();
+                return view('login/admin/updatepassword', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+        
+    }
+
+    public function mchangepassword(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 1){
+                $name = Auth::user();
+                return view('login/manager/mchangepassword', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+        
+    }
+
+    public function uchangepassword(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 2){
+                $name = Auth::user();
+                return view('login/user/uchangepassword', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+        
+    }
+
+    public function updatepass(Request $request)
+    {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => [
+                'required', 'string', 'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+            ]
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
+    }
+
+    public function mupdatepass(Request $request)
+    {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => [
+                'required', 'string', 'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+            ]
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
+    }
+
+    public function uupdatepass(Request $request)
+    {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => [
+                'required', 'string', 'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+            ]
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
+    }
+
     public function manager(){
         
         if(Auth::check()){
             if(Auth::user()->role == 1){
                 $name = Auth::user();
-                return view('login/manager',['user' => $name]);
+                return view('login/manager/manager',['user' => $name]);
             }else{
                 return redirect('/')->with('success', 'you are not allowed to access');
             }
@@ -122,7 +392,7 @@ class logincontroller extends Controller
         if(Auth::check()){
             if(Auth::user()->role == 2){
                 $name = Auth::user();
-                return view('login/user', ['user' => $name]);
+                return view('login/user/user', ['user' => $name]);
             }else{
                 return redirect('/')->with('success', 'you are not allowed to access');
             }
