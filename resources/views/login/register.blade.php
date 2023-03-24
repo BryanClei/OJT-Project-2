@@ -11,6 +11,7 @@
         <div class="card card-registration my-4">
           <form action="{{route('login.validate_registration')}}" method="POST">
             @csrf
+            <input type="hidden" name="role" value="0">
               <div class="row g-0">
               <div class="col-xl-6 d-none d-xl-block">
                 <img src="../img/register-img.jpg"
@@ -23,7 +24,7 @@
                   <div class="row">
                     <div class="col-md-4 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="firstname" id="form3Example1m" class="form-control" />
+                        <input type="text" name="firstname" id="form3Example1m" class="form-control" value="{{ old('firstname') }}" />
                         <label class="form-label" for="form3Example1m">First name</label>
                         @if($errors->has('firstname'))
                           <p class="text-danger"><small>{{ $errors->first('firstname') }}</small></p>
@@ -32,13 +33,13 @@
                     </div>
                     <div class="col-md-4 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="middlename" id="form3Example1n" class="form-control" />
+                        <input type="text" name="middlename" id="form3Example1n" class="form-control" value="{{ old('middlename') }}"/>
                         <label class="form-label" for="form3Example1n">Middle name</label>
                       </div>
                     </div>
                     <div class="col-md-4 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="surname" id="form3Example1n" class="form-control" />
+                        <input type="text" name="surname" id="form3Example1n" class="form-control" value="{{ old('surname') }}"/>
                         <label class="form-label" for="form3Example1n">Surname</label>
                         @if($errors->has('surname'))
                           <p class="text-danger"><small>{{ $errors->first('surname') }}</small></p>
@@ -50,7 +51,7 @@
                   <div class="row">
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="email" name="email" id="form3Example1m1" class="form-control" />
+                        <input type="email" name="email" id="form3Example1m1" class="form-control" value="{{ old('email') }}"/>
                         <label class="form-label" for="form3Example1m1">Email</label>
                         @if($errors->has('email'))
                           <p class="text-danger"><small>{{ $errors->first('email') }}</small></p>
@@ -59,7 +60,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="username" id="form3Example1n1" class="form-control" />
+                        <input type="text" name="username" id="form3Example1n1" class="form-control" value="{{ old('username') }}"/>
                         <label class="form-label" for="form3Example1n1">Username</label>
                         @if($errors->has('username'))
                           <p class="text-danger"><small>{{ $errors->first('username') }}</small></p>
@@ -89,7 +90,7 @@
                   <div class="row">
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="contact" id="form3Example1m" class="form-control" onkeypress='validate(event)' minlegth="11" maxlength="12" />
+                        <input type="text" name="contact" id="form3Example1m" class="form-control" onkeypress='validate(event)' minlegth="11" maxlength="12" value="{{ old('contact') }}"/>
                         <label class="form-label" for="form3Example1m">Contact Number</label>
                         @if($errors->has('contact'))
                           <p class="text-danger"><small>{{ $errors->first('contact') }}</small></p>
@@ -98,7 +99,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="date" name="birthday" id="dt" class="form-control" />
+                        <input type="date" name="birthday" id="dt" class="form-control" value="{{ old('birthday') }}"/>
                         <label class="form-label" for="form3Example1n">Birthday</label>
                         @if($errors->has('birthday'))
                           <p class="text-danger"><small>{{ $errors->first('birthday') }}</small></p>
@@ -107,7 +108,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="street" id="form3Example1m" class="form-control" />
+                        <input type="text" name="street" id="form3Example1m" class="form-control" value="{{ old('street') }}"/>
                         <label class="form-label" for="form3Example1m">Street</label>
                         <br>
                         @if($errors->has('street'))
@@ -117,7 +118,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="barangay" id="form3Example1n" class="form-control" />
+                        <input type="text" name="barangay" id="form3Example1n" class="form-control" value="{{ old('barangay') }}"/>
                         <label class="form-label" for="form3Example1n">Barangay</label>
                         @if($errors->has('barangay'))
                           <p class="text-danger"><small>{{ $errors->first('barangay') }}</small></p>
@@ -126,7 +127,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="city" id="form3Example1n" class="form-control" />
+                        <input type="text" name="city" id="form3Example1n" class="form-control" value="{{ old('city') }}"/>
                         <label class="form-label" for="form3Example1n">City</label>
                         @if($errors->has('city'))
                           <p class="text-danger"><small>{{ $errors->first('city') }}</small></p>
@@ -135,7 +136,7 @@
                     </div>
                     <div class="col-md-6 mb-1">
                       <div class="form-outline">
-                        <input type="text" name="province" id="form3Example1n" class="form-control" />
+                        <input type="text" name="province" id="form3Example1n" class="form-control" value="{{ old('province') }}"/>
                         <label class="form-label" for="form3Example1n">Province</label>
                         @if($errors->has('province'))
                           <p class="text-danger"><small>{{ $errors->first('province') }}</small></p>
@@ -148,9 +149,9 @@
                     <div class="col-md-6 mb-4">
                       <select class="select form-control" name="gender">
                         <option value="" disabled value selected>Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                        <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
                       </select>
                         @if($errors->has('gender'))
                           <p class="text-danger"><small>{{ $errors->first('gender') }}</small></p>

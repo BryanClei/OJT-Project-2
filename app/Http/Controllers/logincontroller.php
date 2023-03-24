@@ -72,7 +72,8 @@ class logincontroller extends Controller
             'barangay' => $data['barangay'],
             'city' => $data['city'],
             'province' => $data['province'],
-            'gender' => $data['gender']
+            'gender' => $data['gender'],
+            'role' => $data['role']
         ]);
 
         return redirect('/')->with('success', 'Registration Complete, Now you can login');
