@@ -20,6 +20,18 @@ class logincontroller extends Controller
         return view('login.register');
     }
     public function validate_registration(Request $request) {
+
+        $firstname = $request->old('firstname');
+        $middlename = $request->old('middlename');
+        $surname = $request->old('surname');
+        $email = $request->old('email');
+        $username = $request->old('username');
+        $gender = $request->old('gender');
+        $contact = $request->old('contact');
+        $street = $request->old('street');
+        $barangay = $request->old('barangay');
+        $city = $request->old('city');
+        $province = $request->old('province');
         
         $request->validate([
             'firstname' => 'required',
@@ -66,6 +78,68 @@ class logincontroller extends Controller
         return redirect('/')->with('success', 'Registration Complete, Now you can login');
     }
 
+    public function validate_admin_registration(Request $request) {
+
+        $firstname = $request->old('firstname');
+        $middlename = $request->old('middlename');
+        $surname = $request->old('surname');
+        $email = $request->old('email');
+        $username = $request->old('username');
+        $gender = $request->old('gender');
+        $contact = $request->old('contact');
+        $street = $request->old('street');
+        $barangay = $request->old('barangay');
+        $city = $request->old('city');
+        $province = $request->old('province');
+        $role = $request->old('role');
+        
+        $request->validate([
+            'firstname' => 'required',
+            'surname' => 'required',
+            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
+            'password' => [
+                'required', 'string', 'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+            ],
+            'password_confirmation' => 'required',
+            'birthday' => 'required',
+            'gender' => 'required',
+            'contact' => 'required|min:11|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'street' => 'required',
+            'barangay' => 'required',
+            'city' => 'required',
+            'province' => 'required',
+            'gender' => 'required',
+            'role' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        User::create([
+            'firstname' => $data['firstname'],
+            'middlename' => $data['middlename'],
+            'surname' => $data['surname'],
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
+            'birthday' => $data['birthday'],
+            'contact' => $data['contact'],
+            'street' => $data['street'],
+            'barangay' => $data['barangay'],
+            'city' => $data['city'],
+            'province' => $data['province'],
+            'gender' => $data['gender'],
+            'role' => $data['role']
+        ]);
+
+        return redirect('login/admin/account')->with('success', 'Registration Complete, User can now login');
+    }
+
     public function validate_login(Request $request) {
 
         $request->validate([
@@ -95,6 +169,20 @@ class logincontroller extends Controller
             if(Auth::user()->role == 0){
                 $name = Auth::user();
                 return view('login/admin/dashboard', ['user' => $name]);
+            }else{
+                return redirect('/')->with('success', 'you are not allowed to access');
+            }
+        }else{
+            return redirect('/')->with('success', 'you are not allowed to access');
+        }
+    }
+
+    public function accounts(){
+
+        if(Auth::check()){
+            if(Auth::user()->role == 0){
+                $name = Auth::user();
+                return view('login/admin/account', ['user' => $name]);
             }else{
                 return redirect('/')->with('success', 'you are not allowed to access');
             }

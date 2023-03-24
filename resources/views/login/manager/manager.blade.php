@@ -4,7 +4,7 @@
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('manager') }}">
         <div class="sidebar-brand-text mx-3">Manager</div>
       </a>
       <hr class="sidebar-divider my-0">

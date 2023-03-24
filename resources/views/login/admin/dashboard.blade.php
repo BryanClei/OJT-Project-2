@@ -13,6 +13,11 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('accounts') }}">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Accounts</span></a>
+      </li>
       <hr class="sidebar-divider">
       
     </ul>
@@ -37,7 +42,7 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="{{ route('updatepassword) }}">
+                <a class="dropdown-item" href="{{ route('updatepassword') }}">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Change Password
                 </a>
@@ -83,7 +88,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="{{ route('logout')}}" class="btn btn-primary">Logout</a>
+                  <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
                 </div>
               </div>
             </div>

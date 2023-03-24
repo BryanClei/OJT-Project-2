@@ -27,9 +27,13 @@ Route::controller(logincontroller::class)->group(function(){
 
     Route::post('/validate_registration', 'validate_registration')->name('login.validate_registration');
 
+    Route::post('/validate_admin_registration', 'validate_admin_registration')->name('admin.validate_admin_registration');
+
     Route::post('/validate_login', 'validate_login')->name('welcome.validate_login');
 
     Route::get('/login/admin/dashboard', 'dashboard')->name('dashboard')->middleware('auth');
+
+    Route::get('/login/admin/account', 'accounts')->name('accounts')->middleware('auth');
 
     Route::get('/login/admin/viewprofile', 'viewprofile')->name('viewprofile')->middleware('auth');
 
