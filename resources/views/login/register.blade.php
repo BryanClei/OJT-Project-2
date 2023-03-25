@@ -11,7 +11,7 @@
         <div class="card card-registration my-4">
           <form action="{{route('login.validate_registration')}}" method="POST">
             @csrf
-            <input type="hidden" name="role" value="0">
+            <input type="hidden" name="role" value="2">
               <div class="row g-0">
               <div class="col-xl-6 d-none d-xl-block">
                 <img src="../img/register-img.jpg"
